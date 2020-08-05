@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="authMapper">
+	<select id="selectAuth" parameterType="String"
+		resultType="com.dzpay.admin.common.dto.token.auth.AuthDto">
+		SELECT
+		id,
+		apikey,
+		sitecd,
+		accessToken,
+		refreshToken,
+		createdDate,
+		modifiedDate
+		FROM
+		TBL_AUTH_TOKEN
+		WHERE
+		accessToken =
+		#{accessToken}
+		ORDER BY
+		id DESC
+	</select>
+
+	<select id="checkApikey" parameterType="String"
+		resultType="com.dzpay.admin.common.dto.token.auth.AuthDto">
+		SELECT
+		id,
+		apikey,
+		sitecd,
+		accessToken,
+		refreshToken,
+		createdDate,
+		modifiedDate
+		FROM
+		TBL_AUTH_TOKEN
+		WHERE apikey = #{apikey}
+		ORDER BY
+		id DESC
+	</select>
+
+
+	<select id="checkSitecd" parameterType="String"
+		resultType="com.dzpay.admin.common.dto.token.auth.AuthDto">
+		SELECT
+		id,
+		apikey,
+		sitecd,
+		accessToken,
+		refreshToken,
+		createdDate,
+		modifiedDate
+		FROM
+		TBL_AUTH_TOKEN
+		WHERE sitecd = #{sitecd}
+		ORDER BY
+		id DESC
+	</select>
+
+	<select id="checkSitecdApikey" parameterType="String"
+		resultType="com.dzpay.admin.common.dto.token.auth.AuthDto">
+		SELECT
+		id,
+		apikey,
+		sitecd,
+		accessToken,
+		refreshToken,
+		createdDate,
+		modifiedDate
+		FROM
+		TBL_AUTH_TOKEN
+		WHERE sitecd = #{sitecd} AND apikey = #{apikey}
+	</select>
+	
+	<insert id="insertAuth" 
+		parameterType="com.dzpay.admin.common.dto.token.auth.AuthDto">
+		insert into TBL_AUTH_TOKEN( id, apikey, sitecd,
+		accessToken,
+		refreshToken, createdDate, modifiedDate)
+		values
+		(
+			auth_seq.NEXTVAL,
+			#{apikey},
+			#{sitecd},
+			#{accessToken, jdbcType=VARCHAR},
+			#{refreshToken, jdbcType=VARCHAR},
+			#{createdDate},
+			#{modifiedDate, jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<update id="updateAuth"
+		parameterType="com.dzpay.admin.common.dto.token.auth.AuthDto">
+		update TBL_AUTH_TOKEN
+		SET
+		accessToken = #{accessToken},
+		refreshToken = #{refreshToken, jdbcType=VARCHAR},
+		modifiedDate = #{modifiedDate}
+		WHERE apikey = #{apikey} AND sitecd = #{sitecd}
+	</update>
+
+
+</mapper>
+

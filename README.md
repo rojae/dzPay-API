@@ -1,2 +1,2 @@
 # dzPay-API
-dzPay-API
+dzPay-API service
