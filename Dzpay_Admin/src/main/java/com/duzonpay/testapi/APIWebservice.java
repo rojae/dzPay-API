@@ -7,6 +7,9 @@
 
 package com.duzonpay.testapi;
 
+import javax.jws.WebService;
+
+@WebService
 public interface APIWebservice extends java.rmi.Remote {
     public com.duzonpay.testapi.AcmsServiceResult acmsService(com.duzonpay.testapi.AcmsServiceModel arg0) throws java.rmi.RemoteException;
     public com.duzonpay.testapi.CardBINCheckResult cardBINCheckService(com.duzonpay.testapi.CardBINCheckModel arg0) throws java.rmi.RemoteException;
