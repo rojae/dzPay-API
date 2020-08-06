@@ -1,0 +1,49 @@
+  -------------------------------------------------
+  ---  DZAPI TOKEN SCHEME
+  -------------------------------------------------
+  
+  --- TBL_AUTH_TOKEN ---
+  
+  CREATE TABLE TBL_AUTH_TOKEN (
+        id NUMBER not null primary key,
+        apikey varchar2(255) not null,
+        sitecd varchar2(255) not null,
+        accessToken varchar2(512) not null,
+        refreshToken varchar2(512) not null,
+        createdDate TIMESTAMP not null,
+        modifiedDate TIMESTAMP
+  );
+  
+     CREATE SEQUENCE auth_seq 
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 1000000;
+  
+--- TBL_USER_INFO --
+   
+    CREATE TABLE TBL_USER_INFO (
+        id NUMBER not null primary key,
+        apikey varchar2(255) not null,
+        sitecd varchar2(255) not null,
+        createdDate TIMESTAMP not null
+    );
+  
+  CREATE SEQUENCE user_seq
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 1000000;
+
+--- TBL_USER_ERROR ---
+
+	CREATE TABLE TBL_USER_ERROR(
+		id NUMBER NOT NULL PRIMARY KEY,
+		userId NUMBER NOT NULL,
+		msg varchar2(255) NOT NULL,
+		errorDate timestamp NOT NULL
+	);
+	
+	CREATE SEQUENCE user_error_seq
+	START WITH 1
+	INCREMENT BY 1
+	MAXVALUE 1000000;
+	

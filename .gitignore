@@ -98,3 +98,6 @@ local.properties
 # database info
 context-datasource.xml
 generatorConfig.xml
+
+# User file set
+Users/
