@@ -31,7 +31,7 @@ public class AuthServiceImpl implements AuthService {
 		if (authDao.selectAuth(accessToken) != null)
 			return true;
 		else
-			System.out.println("[ë¹„ì¸ì¦ í† í°] í† í° ë°œê¸‰ ì‹¤íŒ¨");
+			System.out.println("[ºñÀÎÁõ ÅäÅ«] ÅäÅ« ¹ß±Ş ½ÇÆĞ");
 		return false;
 	}
 
@@ -57,7 +57,7 @@ public class AuthServiceImpl implements AuthService {
 		if(authDao.checkApikey(apikey) != null)
 			return true;
 		else
-			System.out.println("[ë¹„ì¸ì¦ API KEY] API KEY ì²´í¬ ì‹¤íŒ¨");
+			System.out.println("[ºñÀÎÁõ API KEY] API KEY Ã¼Å© ½ÇÆĞ");
 		return false;
 	}
 
@@ -67,7 +67,7 @@ public class AuthServiceImpl implements AuthService {
 		if(authDao.checkSitecd(sitecd) != null)
 			return true;
 		else
-			System.out.println("[ë¹„ì¸ì¦ ì‚¬ì´íŠ¸ì½”ë“œ] SITE CODE ì²´í¬ ì‹¤íŒ¨");
+			System.out.println("[ºñÀÎÁõ »çÀÌÆ®ÄÚµå] SITE CODE Ã¼Å© ½ÇÆĞ");
 		return false;
 	}
 	

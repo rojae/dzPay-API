@@ -78,7 +78,7 @@ public class JwtServiceImpl implements JwtService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			e.getMessage();
-			System.out.println("í† í° ìœ íš¨ ê¸°ê°„ ë§Œë£Œ");
+			System.out.println("ÅäÅ« À¯È¿ ±â°£ ¸¸·á");
 		}
 		@SuppressWarnings("unchecked")
 		Map<String, Object> value = (LinkedHashMap<String, Object>) claims.getBody().get(key);
@@ -106,7 +106,7 @@ public class JwtServiceImpl implements JwtService {
 		return (String) this.get("token").get("refreshToken");
 	}
 
-	// accessToken, refreshTokenì˜ ê²½ìš°
+	// accessToken, refreshTokenÀÇ °æ¿ì
 	@Override
 	public String getExpireDate() {
 		return (String) this.get("properties").get("expire_term");
@@ -120,7 +120,7 @@ public class JwtServiceImpl implements JwtService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			e.getMessage();
-			System.out.println("í† í° ìœ íš¨ ê¸°ê°„ ë§Œë£Œ");
+			System.out.println("ÅäÅ« À¯È¿ ±â°£ ¸¸·á");
 		}
 		return false;
 	}
@@ -143,23 +143,23 @@ public class JwtServiceImpl implements JwtService {
 		} catch (ClaimJwtException e) {
 			e.printStackTrace();
 			e.getMessage();
-			System.out.println("JWT ê¶Œí•œ claim ê²€ì‚¬ ì‹¤íŒ¨");
+			System.out.println("JWT ±ÇÇÑ claim °Ë»ç ½ÇÆĞ");
 		} catch (MalformedJwtException e) {
 			e.printStackTrace();
 			e.getMessage();
-			System.out.println("í† í° êµ¬ì¡°ì ì¸ ì—ëŸ¬");
+			System.out.println("ÅäÅ« ±¸Á¶ÀûÀÎ ¿¡·¯");
 		} catch (SignatureException e) {
 			e.printStackTrace();
 			e.getMessage();
-			System.out.println("í† í° ê²€ì¦ ì‹¤íŒ¨");
+			System.out.println("ÅäÅ« °ËÁõ ½ÇÆĞ");
 		} catch (UnsupportedJwtException e) {
 			e.printStackTrace();
 			e.getMessage();
-			System.out.println("ì„œë¹„ìŠ¤ í˜•ì‹ì— ë§ì§€ ì•ŠëŠ” í† í°");
+			System.out.println("¼­ºñ½º Çü½Ä¿¡ ¸ÂÁö ¾Ê´Â ÅäÅ«");
 		} catch (IllegalArgumentException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 			e.getMessage();
-			System.out.println("í—ˆìš©ë˜ì§€ ì•Šì€ ì¸ì í˜¹ì€ ì¸ì½”ë”© í˜•ì‹");
+			System.out.println("Çã¿ëµÇÁö ¾ÊÀº ÀÎÀÚ È¤Àº ÀÎÄÚµù Çü½Ä");
 		}
 
 		return res;

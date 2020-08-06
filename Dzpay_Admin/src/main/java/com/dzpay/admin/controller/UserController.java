@@ -74,9 +74,9 @@ public class UserController {
 		
 		System.out.println("---- INSERT USER END ----");
 		
-		// status -> insertê°€ ì•ˆë˜ëŠ” ì‹œì ì—ë„ ì„±ê³µìœ¼ë¡œ ëŒ
-		// mybatisë¡œ ì–´ë–»ê²Œ insert ì¿¼ë¦¬ì˜
-		// ì„±ê³µ ìœ ë¬´ ê°’ì„ ê°€ì ¸ì˜¬ ìˆ˜ ìˆì„ê¹Œ?
+		// status -> insert°¡ ¾ÈµÇ´Â ½ÃÁ¡¿¡µµ ¼º°øÀ¸·Î ‰Î
+		// mybatis·Î ¾î¶»°Ô insert Äõ¸®ÀÇ
+		// ¼º°ø À¯¹« °ªÀ» °¡Á®¿Ã ¼ö ÀÖÀ»±î?
 		if(status == 0)
 			return "SUCC INSERT USER";
 		else
