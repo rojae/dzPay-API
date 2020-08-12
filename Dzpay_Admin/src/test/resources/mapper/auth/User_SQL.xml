@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper"> 
+
+	<select id="selectUserByApikey" parameterType="String"
+		resultType="com.dzpay.admin.common.dto.token.auth.UserDto">
+		SELECT id, apikey, createdDate, sitecd
+		FROM TBL_USER_INFO
+		WHERE apikey = #{apikey,jdbcType=VARCHAR}
+		ORDER BY id
+	</select>
+
+	<select id="selectUserBySitecd" parameterType="String"
+			resultType="com.dzpay.admin.common.dto.token.auth.UserDto">
+		SELECT id, apikey, createdDate, sitecd
+		FROM TBL_USER_INFO
+		WHERE sitecd = #{sitecd,jdbcType=VARCHAR}
+		ORDER BY id
+	</select>
+
+	<select id = "selectUserBySitecdApikey"	parameterType="com.dzpay.admin.common.dto.token.auth.UserDto"
+			resultType="com.dzpay.admin.common.dto.token.auth.UserDto">
+		SELECT id, apikey, createdDate, sitecd
+		FROM TBL_USER_INFO
+		WHERE 
+			sitecd = #{sitecd,jdbcType=VARCHAR} 
+			AND
+			apikey = #{apikey,jdbcType=VARCHAR}
+	</select>
+
+	<select id="insertUser"  
+		parameterType="com.dzpay.admin.common.dto.token.auth.UserDto"
+		resultType = "int" statementType="CALLABLE">
+		SELECT FUNC_ADD_USER_APIKEY_SITECD( #{apikey}, #{sitecd}) FROM dual
+	</select>
+
+</mapper>

@@ -73,10 +73,7 @@ public class UserController {
 		int status = userService.insertUser(userDto);
 		
 		System.out.println("---- INSERT USER END ----");
-		
-		// status -> insert가 안되는 시점에도 성공으로 됌
-		// mybatis로 어떻게 insert 쿼리의
-		// 성공 유무 값을 가져올 수 있을까?
+
 		if(status == 0)
 			return "SUCC INSERT USER";
 		else

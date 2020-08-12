@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="statis_daliy_edi">
+
+	<select id="getEDI_Trade" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+		SELECT
+		#{description} AS description,
+		COUNT(1) AS cnt,
+		NVL(SUM(TRADE_MONY), 0) AS money
+		FROM
+		(
+		SELECT
+		E_TRADE_NO,
+		A.SITE_CD,
+		ORDER_NO,
+		CARD_CD,
+		CARD_NO,
+		APP_NO,
+		QUOTA_MONTH,
+		TRADE_MONY,
+		PG_FEE,
+		PG_FEE_TAX,
+		CARD_FEE,
+		ORDER_TELNO,
+		RCV_TELNO,
+		PG_VAN_STATUS,
+		AUTH_YM,
+		AUTH_DAY,
+		AUTH_HM,
+		ORDER_NM,
+		B.SITE_NAME
+		FROM
+		(
+		SELECT
+		E_TRADE_NO,
+		SITE_CD,
+		ORDER_NO,
+		CARD_CD,
+		CARD_NO,
+		APP_NO,
+		QUOTA_MONTH,
+		TRADE_MONY,
+		PG_FEE,
+		PG_FEE_TAX,
+		CARD_FEE,
+		ORDER_TELNO,
+		RCV_TELNO,
+		PG_VAN_STATUS,
+		AUTH_YM,
+		AUTH_DAY,
+		AUTH_HM,
+		ORDER_NM
+		FROM
+		TBLEDI_TRADE
+		WHERE
+		AUTH_YM || AUTH_DAY BETWEEN #{fr_ymd} AND #{to_ymd}
+		<if test="site_cd != 'ALL'">
+			AND site_cd = #{site_cd, jdbcType=VARCHAR}
+		</if>
+		<if test="trade_status != null">
+			AND pg_van_status in (${trade_status})
+		</if>
+		<if test="card_cd != null">
+			AND card_cd = #{card_cd, jdbcType=VARCHAR}
+		</if>
+		<if test="corp_id != 'ALL'">
+			AND corp_id = ${corp_id, jdbcType=VARCHAR}
+		</if>
+		) A, TBLSITE_INFO B
+		WHERE
+		A.SITE_CD = B.SITE_CD AND B.SHOP_TYPE NOT IN
+		('ZZ10')
+		)
+	</select>
+
+	<select id="getEDI_Meip" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+		SELECT #{description} AS description, COUNT(1) AS cnt, NVL(SUM(TRADE_MONY),0) AS money
+		FROM
+		( SELECT E_TRADE_NO,
+		A.SITE_CD, ORDER_NO, CARD_CD, CARD_NO,
+		APP_NO, QUOTA_MONTH, TRADE_MONY,
+		PG_FEE, PG_FEE_TAX, PG_NO_FEE,
+		ORDER_TELNO, MEIP_STATUS,
+		MEIP_YM,
+		MEIP_DAY, ORDER_NM , JUNG_DATE, BORYU_CODE, BORYU_DESC , CORP_TAX_NO,
+		B.SITE_NAME
+		FROM ( SELECT
+		E_TRADE_NO, SITE_CD, ORDER_NO, CARD_CD,
+		CARD_NO, APP_NO,
+		QUOTA_MONTH, TRADE_MONY, PG_FEE, PG_FEE_TAX,
+		PG_NO_FEE,
+		ORDER_TELNO, MEIP_STATUS,
+		MEIP_YM, MEIP_DAY, ORDER_NM ,
+		JUNG_DATE, BORYU_CODE, BORYU_DESC , CORP_TAX_NO
+		FROM TBLEDI_MEIP
+		WHERE
+		MEIP_YM||MEIP_DAY BETWEEN #{fr_ymd} AND #{to_ymd}
+
+		<if test="site_cd != 'ALL'">
+			AND site_cd = #{site_cd, jdbcType=VARCHAR}
+		</if>
+		<if test="corp_id != 'ALL'">
+			AND corp_id = #{corp_id, jdbcType=VARCHAR}
+		</if>
+		<if test="trade_status != null">
+			AND meip_status in (${trade_status})
+		</if>
+		<if test="card_cd != null">
+			AND card_cd = #{card_cd, jdbcType=VARCHAR}
+		</if>
+		) A, TBLSITE_INFO B
+		WHERE A.SITE_CD = B.SITE_CD AND B.SHOP_TYPE NOT IN
+		('ZZ10') )
+	</select>
+</mapper>

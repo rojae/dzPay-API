@@ -7,7 +7,7 @@ import java.util.Map;
 /*
  * 2020.08.03
  * mybatis param not null 검사에 유용하도록 개발
- * *_SQL.xml에서 사용
+ * *_SQL.xml에서 사용 예정
  */
 public class CheckParam {
 	public static boolean isEmpty(Object obj) {

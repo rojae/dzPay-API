@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="statis_daily_card">
+
+		<select id = "getCard_Trade" parameterType = "java.util.HashMap"
+				resultType = "java.util.HashMap">
+			 SELECT #{description} AS description, COUNT(1) AS cnt, NVL(SUM(TRADE_MONY),0) AS money FROM 
+  ( SELECT  C_TRADE_NO, A.SITE_CD, ORDER_NO, CARD_CD, CARD_NO, 
+         APP_NO, QUOTA_MONTH, TRADE_MONY, PG_FEE, PG_FEE_TAX, CARD_FEE, 
+         ORDER_TELNO, RCV_TELNO, PG_VAN_STATUS, 
+         AUTH_YM, AUTH_DAY, AUTH_HM, ORDER_NM,  B.SITE_NAME 
+    FROM (  SELECT C_TRADE_NO, SITE_CD, ORDER_NO, CARD_CD, CARD_NO, APP_NO, 
+                  QUOTA_MONTH, TRADE_MONY, PG_FEE, PG_FEE_TAX, CARD_FEE, 
+                   ORDER_TELNO, RCV_TELNO, PG_VAN_STATUS, 
+                   AUTH_YM, AUTH_DAY, AUTH_HM, ORDER_NM 
+             FROM  TBLCARD_TRADE 
+             WHERE AUTH_YM||AUTH_DAY BETWEEN (#{fr_ymd}) AND (#{to_ymd}) 
+                           
+                           <if test = "site_cd != 'ALL'">
+                           		AND site_cd IN (#{site_cd, jdbcType=VARCHAR})
+                           </if>
+                           <if test = "corp_id != 'ALL'">
+                           		AND corp_id IN (#{corp_id, jdbcType=VARCHAR})
+                           </if>
+                           <!-- 
+                           <if test = "shop_code != 'ALL'">
+                           		AND shop_code IN (#{shop_code, jdbcType=VARCHAR})
+                           </if>
+                           -->
+                           
+                           <if test = "trade_status != null and !trade_status.equals('')">
+                           		<!-- <choose>
+	                           		<when test = "trade_status == 'ST35' or trade_status == 'ST40'">
+	                           			AND ptcanc_status IN (${trade_status})
+	                           		</when>
+	                           		<otherwise>
+										AND pg_van_status IN (#{trade_status})		                           			
+	                           		</otherwise>
+	                           	</choose> -->
+	                           	AND pg_van_status IN (${trade_status})		                           			
+                           </if>
+
+							<!--
+							<if test = "card_cd != 'ALL'">
+								AND card_cd = #{card_cd}
+							</if>							
+							<if test = 'quota_month != "X"'>
+								AND quota_month = #{quota_month}
+							</if>
+							<if test = "mob_yn != 'ALL'">
+								AND mob_yn = #{mob_yn}
+							</if>
+							<if test = "card_type != 'ALL'">
+								AND card_type in ('${card_type}')
+							</if>
+							<if test = "tax_yn != 'ALL'">
+								AND tax_yn = #{tax_yn}
+							</if>
+							-->
+							
+							<choose>
+								<when test = "search_kind == 'order_no'">
+									AND order_no = #{search_word, jdbcType = VARCHAR}
+								</when>
+								<when test = "search_kind == 'goods_cd'">
+									AND goods_cd like #{search_word, jdbcType = VARCHAR} %
+								</when>
+								<when test = "search_kind == 'order_nm'">
+									AND order_nm like #{search_word, jdbcType = VARCHAR} %
+								</when>
+								<when test = "search_kind == 'c_trade_no'">
+									AND c_trade_no = #{search_word, jdbcType = VARCHAR}
+								</when>
+								<when test = "search_kind == 'card_no'">
+									AND card_no like #{search_word, jdbcType = VARCHAR} %
+								</when>
+								<when test = "search_kind == 'auth_no'">
+									AND auth_no like #{search_word, jdbcType = VARCHAR} %
+								</when>
+								<when test = "search_kind == 'mob_no_chg'">
+									AND mob_no_chg like #{search_word, jdbcType = VARCHAR} %
+								</when>
+								<when test = "search_kind == 'trade_mony'">
+									AND trade_mony = #{search_keyword, jdbcType = VARCHAR}
+								</when>
+							</choose>
+		      ) A, TBLSITE_INFO B, TBLCARD_MASTER C 
+		  WHERE A.SITE_CD = B.SITE_CD AND B.SITE_CD = C.SITE_CD AND CARD_AUTH_TYPE = 'AT01' 
+		  )
+		</select>
+		
+			<select id = "getCard_Meip" parameterType = "java.util.HashMap"
+				resultType = "java.util.HashMap">
+  SELECT #{description} AS description, COUNT(1) AS cnt , NVL(SUM(TRADE_MONY),0) AS money FROM  
+  ( SELECT C_TRADE_NO, A.SITE_CD, ORDER_NO, CARD_CD, CARD_NO, 
+         APP_NO, QUOTA_MONTH, TRADE_MONY, PG_FEE, PG_FEE_TAX, PG_NO_FEE, 
+         ORDER_TELNO, MEIP_STATUS, 
+         MEIP_YM, MEIP_DAY, ORDER_NM , JUNG_DATE, BORYU_CODE, BORYU_DESC , CORP_TAX_NO,  B.SITE_NAME 
+    FROM (  SELECT 
+                   C_TRADE_NO, SITE_CD, ORDER_NO, CARD_CD, CARD_NO, APP_NO, 
+                   QUOTA_MONTH, TRADE_MONY, PG_FEE, PG_FEE_TAX, PG_NO_FEE, 
+                   ORDER_TELNO, MEIP_STATUS, 
+                   MEIP_YM, MEIP_DAY, ORDER_NM , JUNG_DATE, BORYU_CODE, BORYU_DESC , CORP_TAX_NO 
+             FROM TBLCARD_MEIP 
+             WHERE MEIP_YM||MEIP_DAY BETWEEN #{fr_ymd} AND #{to_ymd} 
+                           
+                           <if test = "site_cd != 'ALL'">
+                           		AND site_cd IN (#{site_cd, jdbcType=VARCHAR})
+                           </if>
+                           <if test = "corp_id != 'ALL'">
+                           		AND corp_id IN (#{corp_id, jdbcType=VARCHAR})
+                           </if>
+                           <!-- 
+                           <if test = "shop_code != 'ALL'">
+                           		AND shop_code IN (#{shop_code, jdbcType=VARCHAR})
+                           </if>
+                           -->
+
+                            <if test = "trade_status != null and !trade_status.equals('')">
+					         	AND meip_status in (${trade_status}) 
+                            </if>
+                            <!--
+                            <if test = "card_cd != 'ALL'">
+								AND card_cd = #{card_cd, jdbcType = VARCHAR}
+							</if>
+                            <if test = 'quota_month != "X"'>
+								AND quota_month = #{quota_month, jdbcType = VARCHAR}
+							</if>
+							<if test = "tax_yn != 'ALL'">
+								AND tax_yn = #{tax_yn, jdbcType = VARCHAR}
+							</if>
+							-->
+
+							<choose>
+								<when test = "search_kind == 'order_no'">
+									AND order_no = #{search_word, jdbcType = VARCHAR}
+								</when>
+								<when test = "search_kind == 'goods_cd'">
+									AND goods_cd like #{search_word, jdbcType = VARCHAR} %
+								</when>
+								<when test = "search_kind == 'order_nm'">
+									AND order_nm like #{search_word, jdbcType = VARCHAR} %
+								</when>
+								<when test = "search_kind == 'c_trade_no'">
+									AND c_trade_no = #{search_word, jdbcType = VARCHAR}
+								</when>
+								<when test = "search_kind == 'card_no'">
+									AND card_no like #{search_word, jdbcType = VARCHAR} %
+								</when>
+								<when test = "search_kind == 'app_no'">
+									AND app_no like #{search_word, jdbcType = VARCHAR} %
+								</when>
+								<when test = "search_kind == 'van_tx_id'">
+									AND van_tx_id like #{search_word, jdbcType = VARCHAR} %
+								</when>
+							</choose>
+		         ) A, TBLSITE_INFO B 
+		  WHERE A.SITE_CD = B.SITE_CD 
+		  ) 
+		  </select>   
+</mapper>
+
+
