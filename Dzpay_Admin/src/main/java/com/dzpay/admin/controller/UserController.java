@@ -73,7 +73,7 @@ public class UserController {
 		int status = userService.insertUser(userDto);
 		
 		System.out.println("---- INSERT USER END ----");
-
+		
 		if(status == 0)
 			return "SUCC INSERT USER";
 		else

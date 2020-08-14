@@ -1,5 +1,6 @@
 package com.dzpay.admin.common.utils;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
 
 import com.dzpay.admin.common.error.UnsupportTypeException;
+import com.dzpay.admin.common.logger.LoggerCustom;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -53,5 +55,26 @@ public class ClientUtils {
 			throw new UnsupportTypeException();
 		}
 		return jsonStr;
+    }
+    
+    // 오브젝트 타입에 상관 없이  VO 데이터를 가져오자
+    public static String getVOvalue(Object vo) {
+    	String res = "";
+    	for(Field field : vo.getClass().getDeclaredFields()) {
+    		field.setAccessible(true);
+    		Object value = null;
+			try {
+				value = field.get(vo);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			if(value == null)
+				continue;
+			else
+				res += field.getName()+ " : " + value + "\n";
+    	}
+    	return res;
     }
 }

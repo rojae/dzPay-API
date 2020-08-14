@@ -119,7 +119,10 @@ public class CardDto {
 	 *	daily Meip Cancel	dmc
 	 */
 	public void convertColumn(String rtn_sts) throws Exception {
-		if(this.rtn_sts.equals("dp")) {
+		if(this.rtn_sts.equals("")) {
+			throw new UnsupportTypeException();
+		}
+		else if(this.rtn_sts.equals("dp")) {
 			setDescription("Card Today's Payments Amount for DuzonePay");
 			setTrade_status("'ST01'");
 		}

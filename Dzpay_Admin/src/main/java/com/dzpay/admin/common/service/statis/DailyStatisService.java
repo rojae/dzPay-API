@@ -1,8 +1,11 @@
 package com.dzpay.admin.common.service.statis;
 
 
+import com.dzpay.admin.common.dto.statis.AcntDto;
 import com.dzpay.admin.common.dto.statis.CardDto;
 import com.dzpay.admin.common.dto.statis.EDIDto;
+import com.dzpay.admin.common.dto.statis.MCashDto;
+import com.dzpay.admin.common.dto.statis.VcntDto;
 
 public interface DailyStatisService {
 
@@ -20,7 +23,22 @@ public interface DailyStatisService {
 
 	public String getEDI_ALL(EDIDto vo) throws Exception;
 
+	// Acnt 계좌이체
+	// 금일 통계 현황
+	public String getAcnt_Trade(AcntDto vo) throws Exception;
 
+	public String getAcnt_All(AcntDto vo) throws Exception;
 
+	// vcnt 가상계좌
+	public String getVcnt_Trade(VcntDto vo) throws Exception;
 
+	public String getVcnt_All(VcntDto vo) throws Exception;
+
+	// Mcash 휴대폰
+	public String getMCash_Trade(MCashDto vo) throws Exception;
+
+	public String getMCash_ALL(MCashDto vo) throws Exception;
+
+	
+	
 }

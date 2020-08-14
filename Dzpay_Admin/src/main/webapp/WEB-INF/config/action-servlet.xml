@@ -9,14 +9,15 @@
 	
 	<context:component-scan base-package="com"></context:component-scan>
 	
-	<!--인터셉터 설정 -->
+	<!--인터셉터 설정 
      <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean id="loggerInterceptor" class="com.dzpay.admin.common.logger.LoggerInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
-
+	-->
+	
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 	<bean

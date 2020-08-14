@@ -2,6 +2,7 @@
 
 <!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
 
+<!-- 개발 및 테스트를 위한 log4j -->
 <log4j:configuration
 	xmlns:log4j="http://jakarta.apache.org/log4j/">
 
@@ -14,7 +15,7 @@
 		</layout>
 	</appender>
 
-	<!-- file appender -->
+	<!-- file appender 
 	<appender name="dailyRollingFile"
 		class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="File" value="H:/logs/DzPay_API.log" />
@@ -25,77 +26,58 @@
 			<param name="ConversionPattern" value="%d %5p [%c] %m%n" />
 		</layout>
 	</appender>
-
+	-->
+	
 	<!-- Application Loggers -->
 	<logger name="com.dzpay.admin">
 		<level value="INFO" />
 		<appender-ref ref="console" />
-		<appender-ref ref="dailyRollingFile" />
 	</logger>
 
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyRollingFile" />
-
+		<level value="DEBUG" />
 	</logger>
 
 	<logger name="org.springframework.beans">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyRollingFile" />
+		<level value="DEBUG" />
 	</logger>
 
 	<logger name="org.springframework.context">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyRollingFile" />
+		<level value="DEBUG" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyRollingFile" />
+		<level value="DEBUG" />
 	</logger>
-
+ 	
 	<!-- SQL Logger -->
 	<logger name="jdbc.sqltiming" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyRollingFile" />
+		<level value="DEBUG" />
 	</logger>
 
 	<logger name="jdbc.sqlonly" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyRollingFile" />
+		<level value="DEBUG" />
 	</logger>
 
 	<logger name="jdbc.audit" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyRollingFile" />
+		<level value="DEBUG" />
 	</logger>
 
 	<logger name="jdbc.resultset" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyRollingFile" />
+		<level value="DEBUG" />
 	</logger>
 
 	<logger name="jdbc.resultsettable" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyRollingFile" />
+		<level value="DEBUG" />
 	</logger>
-
-	<!-- Root Logger -->
+	
+	<!-- Root Logger 
 	<root>
-		<priority value="warn" />
+		<level value="INFO"/>
 		<appender-ref ref="console" />
 	</root>
 
-
+-->
 
 </log4j:configuration>
